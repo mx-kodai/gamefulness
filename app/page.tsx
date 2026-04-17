@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { GAMES } from "@/lib/games";
+import { thumbnailPath } from "@/lib/thumbnails";
 import TopHighlights from "./_home/TopHighlights";
 
 export default function Home() {
@@ -191,6 +192,19 @@ function GameCard({ game, index }: { game: (typeof GAMES)[number]; index: number
 }
 
 function CardArt({ slug, seed, color }: { slug: string; seed: number; color: string }) {
+  const thumb = thumbnailPath(slug);
+  if (thumb) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={thumb}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  }
   return (
     <svg viewBox="0 0 200 150" className="absolute inset-0 h-full w-full" aria-hidden>
       <defs>
