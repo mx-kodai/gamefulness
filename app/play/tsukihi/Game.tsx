@@ -6,10 +6,10 @@ import { addScore, getCurrentUser, uid } from "@/lib/store";
 
 type Phase = "idle" | "playing" | "done";
 const TOTAL_CYCLES = 6;
-const CYCLE_MS = 10000;
-const PEAK_WINDOW_MS = 900;
+const CYCLE_MS = 8000;
+const PEAK_WINDOW_MS = 1400;
 
-type RingFeedback = "perfect" | "good" | null;
+type RingFeedback = "perfect" | "good" | "miss" | null;
 
 export default function TsukihiGame() {
   const [phase, setPhase] = useState<Phase>("idle");
@@ -23,6 +23,7 @@ export default function TsukihiGame() {
   const raf = useRef<number | null>(null);
   const scoredCycles = useRef<Set<number>>(new Set());
   const latestPhase = useRef<Phase>("idle");
+  const latestScore = useRef(0);
 
   useEffect(() => {
     const v = typeof window !== "undefined" ? localStorage.getItem("tsukihi:best") : null;
@@ -38,6 +39,10 @@ export default function TsukihiGame() {
   useEffect(() => {
     latestPhase.current = phase;
   }, [phase]);
+
+  useEffect(() => {
+    latestScore.current = score;
+  }, [score]);
 
   const finish = useCallback(
     (finalScore: number) => {
@@ -69,19 +74,20 @@ export default function TsukihiGame() {
     const t = performance.now() - startTs.current;
     const idx = Math.floor(t / CYCLE_MS);
     if (idx >= TOTAL_CYCLES) {
-      finish(score);
+      finish(latestScore.current);
       return;
     }
     const within = (t % CYCLE_MS) / CYCLE_MS;
     setCycle(idx);
     setPhaseProgress(within);
     raf.current = requestAnimationFrame(tick);
-  }, [finish, score]);
+  }, [finish]);
 
   const start = useCallback(() => {
     enterFs();
     scoredCycles.current = new Set();
     setScore(0);
+    latestScore.current = 0;
     setCycle(0);
     setPhaseProgress(0);
     setFeedback(null);
@@ -105,7 +111,11 @@ export default function TsukihiGame() {
       setScore((s) => s + (perfect ? 2 : 1));
       setFeedback(perfect ? "perfect" : "good");
       playChime(perfect);
-      setTimeout(() => setFeedback(null), 500);
+      setTimeout(() => setFeedback(null), 600);
+    } else {
+      setFeedback("miss");
+      playMiss();
+      setTimeout(() => setFeedback(null), 400);
     }
   }, [phase]);
 
@@ -115,6 +125,7 @@ export default function TsukihiGame() {
     setPhase("idle");
     latestPhase.current = "idle";
     setScore(0);
+    latestScore.current = 0;
     setCycle(0);
     setPhaseProgress(0);
     setFeedback(null);
@@ -126,15 +137,21 @@ export default function TsukihiGame() {
     };
   }, []);
 
-  const moonScale = 0.55 + Math.sin(phaseProgress * Math.PI) * 0.45;
+  // Phase progress: 0 = new moon (smallest), 0.5 = full moon (largest), 1.0 = new moon again
+  const moonScale = 0.35 + Math.sin(phaseProgress * Math.PI) * 0.65;
   const moonGlow = Math.sin(phaseProgress * Math.PI);
+
+  // Tap window: center at 0.5, width = PEAK_WINDOW_MS / CYCLE_MS
+  const windowHalf = PEAK_WINDOW_MS / 2 / CYCLE_MS;
+  const inWindow = Math.abs(phaseProgress - 0.5) <= windowHalf;
+
   const hint =
     phase !== "playing"
       ? ""
-      : phaseProgress < 0.45
+      : phaseProgress < 0.4
         ? "すーっと、吸って"
-        : phaseProgress < 0.55
-          ? "いまだ、そっとタップ"
+        : inWindow
+          ? "いま！タップ！"
           : "ふーっと、吐いて";
 
   return (
@@ -147,7 +164,10 @@ export default function TsukihiGame() {
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border-2 border-ink bg-bg px-4 py-3 pr-28 ring-ink-sm md:px-5 md:py-4 md:pr-36">
           <div className="flex items-center gap-5 md:gap-7">
             <Stat label="スコア" value={String(score)} />
-            <Stat label="サイクル" value={`${Math.min(cycle + (phase === "playing" ? 1 : 0), TOTAL_CYCLES)} / ${TOTAL_CYCLES}`} />
+            <Stat
+              label="サイクル"
+              value={`${Math.min(cycle + (phase === "playing" ? 1 : 0), TOTAL_CYCLES)} / ${TOTAL_CYCLES}`}
+            />
             <Stat label="さいこう" value={String(best)} />
           </div>
           <div className="flex gap-2">
@@ -185,6 +205,31 @@ export default function TsukihiGame() {
             aria-label="月をタップ"
           >
             <Stars />
+
+            {/* Timing bar at bottom */}
+            {phase === "playing" && (
+              <div className="pointer-events-none absolute inset-x-8 bottom-6 md:inset-x-12">
+                <div className="relative h-2 w-full rounded-full bg-bg/20">
+                  <div
+                    className="absolute top-1/2 h-6 -translate-y-1/2 rounded-full bg-yellow/30 ring-2 ring-yellow"
+                    style={{
+                      left: `${(0.5 - windowHalf) * 100}%`,
+                      width: `${windowHalf * 2 * 100}%`,
+                    }}
+                  />
+                  <div
+                    className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-bg ring-2 ring-ink"
+                    style={{ left: `${phaseProgress * 100}%` }}
+                  />
+                </div>
+                <div className="mt-2 flex justify-between font-label text-[10px] font-semibold uppercase tracking-[0.25em] text-bg/70">
+                  <span>新月</span>
+                  <span>満月</span>
+                  <span>新月</span>
+                </div>
+              </div>
+            )}
+
             <div
               className="relative flex items-center justify-center rounded-full"
               style={{
@@ -211,31 +256,61 @@ export default function TsukihiGame() {
                     "radial-gradient(circle at 70% 75%, rgba(40,30,10,0.25) 0%, rgba(40,30,10,0) 55%)",
                 }}
               />
-              {feedback && (
+              {inWindow && phase === "playing" && !feedback && (
                 <div
-                  className="pointer-events-none absolute -inset-6 rounded-full border-2"
+                  className="pointer-events-none absolute -inset-8 rounded-full border-4"
                   style={{
-                    borderColor: feedback === "perfect" ? "#F4B533" : "#2FA66E",
-                    animation: "tsukiring 0.5s ease-out",
+                    borderColor: "#F4B533",
+                    animation: "tsukipulse 0.7s ease-in-out infinite",
                   }}
+                />
+              )}
+              {feedback === "perfect" && (
+                <div
+                  className="pointer-events-none absolute -inset-6 rounded-full border-4 border-yellow"
+                  style={{ animation: "tsukiring 0.6s ease-out" }}
+                />
+              )}
+              {feedback === "good" && (
+                <div
+                  className="pointer-events-none absolute -inset-6 rounded-full border-4 border-green"
+                  style={{ animation: "tsukiring 0.6s ease-out" }}
+                />
+              )}
+              {feedback === "miss" && (
+                <div
+                  className="pointer-events-none absolute -inset-6 rounded-full border-4 border-red/70"
+                  style={{ animation: "tsukiring 0.4s ease-out" }}
                 />
               )}
             </div>
 
             <div className="pointer-events-none absolute inset-x-0 top-6 flex flex-col items-center gap-1 text-center">
               <div className="font-label text-[10px] font-semibold uppercase tracking-[0.3em] text-bg/70 md:text-[11px]">
-                BREATHE
+                {phase === "playing" ? "月のリズム" : "BREATHE"}
               </div>
-              <div className="font-display text-[18px] font-black text-bg md:text-[24px]">
+              <div
+                className={`font-display text-[20px] font-black md:text-[28px] ${
+                  inWindow && phase === "playing" ? "text-yellow" : "text-bg"
+                }`}
+              >
                 {hint || "月のリズム"}
               </div>
             </div>
 
             {phase === "idle" && (
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-black/40 backdrop-blur-[2px]">
-                <p className="max-w-xs text-center font-display text-[18px] font-bold leading-snug text-bg md:text-[20px]">
-                  月が満ちたら、<br />そっとタップ。
-                </p>
+                <div className="max-w-sm rounded-2xl border-2 border-bg/40 bg-black/40 px-6 py-5 text-center">
+                  <p className="font-display text-[18px] font-black text-bg md:text-[20px]">
+                    月が一番ふくらんだ しゅんかん、
+                  </p>
+                  <p className="mt-1 font-display text-[18px] font-black text-yellow md:text-[20px]">
+                    黄色い わくが 出たら タップ
+                  </p>
+                  <p className="mt-2 text-[12px] text-bg/80 md:text-[13px]">
+                    ６サイクル。呼吸にあわせて、ゆっくり。
+                  </p>
+                </div>
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -251,7 +326,7 @@ export default function TsukihiGame() {
             {phase === "done" && (
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/55 backdrop-blur-[2px]">
                 <p className="font-display text-[20px] font-bold text-bg md:text-[26px]">
-                  今夜は{score}回、月と呼吸できました
+                  {score}回、月と合いました
                 </p>
                 <p className="text-[13px] text-bg/80 md:text-[15px]">
                   {score >= 10 ? "最高のリズム" : score >= 6 ? "いいリズム" : "すこしずつ、で十分"}
@@ -274,8 +349,12 @@ export default function TsukihiGame() {
       </div>
       <style jsx>{`
         @keyframes tsukiring {
-          0% { opacity: 0.9; transform: scale(0.85); }
+          0% { opacity: 0.95; transform: scale(0.85); }
           100% { opacity: 0; transform: scale(1.25); }
+        }
+        @keyframes tsukipulse {
+          0%, 100% { opacity: 0.65; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.06); }
         }
       `}</style>
     </FullscreenHost>
@@ -353,4 +432,22 @@ function playChime(perfect: boolean) {
     o.start(now);
     o.stop(now + 1.9);
   });
+}
+
+function playMiss() {
+  const ctx = getAudio();
+  if (!ctx) return;
+  const now = ctx.currentTime;
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.type = "triangle";
+  o.frequency.setValueAtTime(300, now);
+  o.frequency.exponentialRampToValueAtTime(150, now + 0.25);
+  o.connect(g);
+  g.connect(ctx.destination);
+  g.gain.setValueAtTime(0.0001, now);
+  g.gain.exponentialRampToValueAtTime(0.06, now + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+  o.start(now);
+  o.stop(now + 0.32);
 }

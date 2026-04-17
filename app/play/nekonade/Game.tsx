@@ -397,16 +397,16 @@ function startPurr(): () => void {
   const lfo = ctx.createOscillator();
   const lfoGain = ctx.createGain();
   const g = ctx.createGain();
-  osc.type = "sawtooth";
-  osc.frequency.value = 38;
+  osc.type = "triangle";
+  osc.frequency.value = 42;
   lfo.type = "sine";
-  lfo.frequency.value = 18;
-  lfoGain.gain.value = 0.05;
+  lfo.frequency.value = 16;
+  lfoGain.gain.value = 0.012;
   lfo.connect(lfoGain);
   lfoGain.connect(g.gain);
   osc.connect(g);
   g.connect(ctx.destination);
-  g.gain.value = 0.08;
+  g.gain.value = 0.018;
   osc.start();
   lfo.start();
   return () => {

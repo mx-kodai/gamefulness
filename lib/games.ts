@@ -88,8 +88,8 @@ export const GAMES: GameMeta[] = [
   },
   {
     slug: "kazerin",
-    title: "かぜりん",
-    kana: "KAZERIN",
+    title: "ふうりん",
+    kana: "FUURIN",
     tagline: "光った風鈴を、やさしく鳴らそう。",
     color: "blue",
     status: "playable",
@@ -160,19 +160,6 @@ export const GAMES: GameMeta[] = [
     duration: "1プレイ 2〜5分",
   },
   {
-    slug: "kotoba",
-    title: "ことばの庭",
-    kana: "KOTOBA",
-    tagline: "やさしい言葉を集めよう。",
-    color: "yellow",
-    status: "soon",
-    concept:
-      "「ありがとう」「おかえり」「だいじょうぶ」。画面の庭に、集めた言葉がちいさな花として咲いていく。",
-    howTo: ["3つの言葉から、今日の気持ちに近いものを選びます", "庭に花が咲きます", "続けるほど庭が豊かに"],
-    wellness: "肯定的感情の喚起・語彙の想起・毎日の小さな記録に。",
-    duration: "1プレイ 1〜2分",
-  },
-  {
     slug: "nekonade",
     title: "ねこなで",
     kana: "NEKONADE",
@@ -184,6 +171,19 @@ export const GAMES: GameMeta[] = [
     howTo: ["画面のねこを指で撫でます", "強すぎず、一定の速さで", "ごろごろ言いはじめたら成功"],
     wellness: "触覚的リラックス・ペースを緩める練習・情緒安定。",
     duration: "1プレイ 1〜3分",
+  },
+  {
+    slug: "kotoba",
+    title: "ことばの庭",
+    kana: "KOTOBA",
+    tagline: "やさしい言葉を集めよう。",
+    color: "yellow",
+    status: "soon",
+    concept:
+      "「ありがとう」「おかえり」「だいじょうぶ」。画面の庭に、集めた言葉がちいさな花として咲いていく。",
+    howTo: ["3つの言葉から、今日の気持ちに近いものを選びます", "庭に花が咲きます", "続けるほど庭が豊かに"],
+    wellness: "肯定的感情の喚起・語彙の想起・毎日の小さな記録に。",
+    duration: "1プレイ 1〜2分",
   },
   {
     slug: "egao",

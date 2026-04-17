@@ -3,7 +3,7 @@ import Link from "next/link";
 import KazerinGame from "./Game";
 
 export const metadata: Metadata = {
-  title: "かぜりん | ゲームフルネス",
+  title: "ふうりん | ゲームフルネス",
   description: "光った風鈴をタップして鳴らそう。やさしい音色のタイミングあそび。",
 };
 

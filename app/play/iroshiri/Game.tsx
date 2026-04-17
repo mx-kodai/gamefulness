@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import FullscreenHost, { enterFs } from "@/components/FullscreenHost";
 import { addScore, getCurrentUser, uid } from "@/lib/store";
 
@@ -20,27 +20,37 @@ const WORDS: Word[] = [
   { kana: "あお", color: "blue" },
   { kana: "あめ", color: "blue" },
   { kana: "あじさい", color: "blue" },
+  { kana: "あり", color: "red" },
   { kana: "いちご", color: "red" },
   { kana: "いけ", color: "blue" },
   { kana: "いか", color: "blue" },
+  { kana: "いぬ", color: "yellow" },
   { kana: "うみ", color: "blue" },
+  { kana: "うし", color: "yellow" },
   { kana: "えだまめ", color: "green" },
+  { kana: "えび", color: "red" },
   { kana: "おちば", color: "red" },
+  { kana: "おに", color: "red" },
   { kana: "かに", color: "red" },
   { kana: "かえる", color: "green" },
   { kana: "かぼちゃ", color: "yellow" },
   { kana: "かわ", color: "blue" },
+  { kana: "かめ", color: "green" },
   { kana: "きいろ", color: "yellow" },
   { kana: "きく", color: "yellow" },
   { kana: "きゃべつ", color: "green" },
   { kana: "くさ", color: "green" },
   { kana: "くり", color: "yellow" },
+  { kana: "くま", color: "red" },
   { kana: "こい", color: "red" },
   { kana: "こけ", color: "green" },
+  { kana: "ことり", color: "yellow" },
   { kana: "さくら", color: "red" },
   { kana: "さかな", color: "blue" },
+  { kana: "さる", color: "red" },
   { kana: "しお", color: "blue" },
   { kana: "すいか", color: "green" },
+  { kana: "すずめ", color: "yellow" },
   { kana: "せみ", color: "green" },
   { kana: "そら", color: "blue" },
   { kana: "たけ", color: "green" },
@@ -48,26 +58,35 @@ const WORDS: Word[] = [
   { kana: "たまご", color: "yellow" },
   { kana: "ちず", color: "yellow" },
   { kana: "つき", color: "yellow" },
+  { kana: "つる", color: "red" },
   { kana: "とまと", color: "red" },
+  { kana: "とり", color: "yellow" },
   { kana: "なす", color: "blue" },
   { kana: "にく", color: "red" },
+  { kana: "にじ", color: "yellow" },
   { kana: "にわとり", color: "red" },
   { kana: "ぬま", color: "green" },
   { kana: "ねぎ", color: "green" },
+  { kana: "ねこ", color: "yellow" },
   { kana: "のはら", color: "green" },
   { kana: "はな", color: "red" },
   { kana: "はっぱ", color: "green" },
+  { kana: "はと", color: "yellow" },
   { kana: "ひよこ", color: "yellow" },
   { kana: "ひまわり", color: "yellow" },
   { kana: "ふうせん", color: "red" },
+  { kana: "ふね", color: "yellow" },
   { kana: "ほし", color: "yellow" },
+  { kana: "ほたる", color: "green" },
   { kana: "まつ", color: "green" },
   { kana: "みかん", color: "yellow" },
   { kana: "みず", color: "blue" },
   { kana: "みどり", color: "green" },
   { kana: "もも", color: "red" },
   { kana: "やま", color: "green" },
+  { kana: "やね", color: "red" },
   { kana: "ゆり", color: "red" },
+  { kana: "ゆき", color: "blue" },
   { kana: "よぞら", color: "blue" },
   { kana: "りんご", color: "red" },
   { kana: "れもん", color: "yellow" },
@@ -104,31 +123,26 @@ function firstKana(w: string): string {
   return c;
 }
 
-function pickChoices(
-  head: string,
-  used: Set<string>,
-  desired: number,
-): Word[] {
+function pickChoices(head: string, used: Set<string>, desired: number): Word[] {
   const pool = WORDS.filter((w) => !used.has(w.kana) && firstKana(w.kana) === head);
   const shuffled = [...pool].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, desired);
 }
 
-const TOTAL_TIME_MS = 60000;
+const TOTAL_TIME_MS = 90000;
 
 export default function IroshiriGame() {
   const [phase, setPhase] = useState<Phase>("idle");
-  const [current, setCurrent] = useState<Word | null>(null);
+  const [history, setHistory] = useState<Word[]>([]);
   const [choices, setChoices] = useState<Word[]>([]);
-  const [chain, setChain] = useState(0);
   const [score, setScore] = useState(0);
   const [best, setBest] = useState(0);
   const [timeLeft, setTimeLeft] = useState(TOTAL_TIME_MS);
-  const [bg, setBg] = useState<Color | null>(null);
   const [isFs, setIsFs] = useState(false);
   const used = useRef<Set<string>>(new Set());
   const startTs = useRef(0);
   const raf = useRef<number | null>(null);
+  const finalScoreRef = useRef(0);
 
   useEffect(() => {
     const v = typeof window !== "undefined" ? localStorage.getItem("iroshiri:best") : null;
@@ -172,20 +186,19 @@ export default function IroshiriGame() {
     const left = Math.max(0, TOTAL_TIME_MS - (performance.now() - startTs.current));
     setTimeLeft(left);
     if (left <= 0) {
-      finish(score);
+      finish(finalScoreRef.current);
       return;
     }
     raf.current = requestAnimationFrame(tick);
-  }, [finish, score]);
+  }, [finish]);
 
   const start = useCallback(() => {
     enterFs();
     const first = WORDS[Math.floor(Math.random() * WORDS.length)];
     used.current = new Set([first.kana]);
-    setCurrent(first);
-    setBg(first.color);
-    setChain(1);
+    setHistory([first]);
     setScore(0);
+    finalScoreRef.current = 0;
     setTimeLeft(TOTAL_TIME_MS);
     const lk = lastKana(first.kana);
     setChoices(lk === "ん" ? [] : pickChoices(lk, used.current, 4));
@@ -198,37 +211,34 @@ export default function IroshiriGame() {
     (w: Word) => {
       if (phase !== "playing") return;
       used.current.add(w.kana);
-      const nextChain = chain + 1;
-      const bonus = current && w.color !== current.color ? 5 : 2;
-      setChain(nextChain);
-      setScore((s) => s + 10 + bonus);
-      setCurrent(w);
-      setBg(w.color);
+      const nextScore = score + 10;
+      setScore(nextScore);
+      finalScoreRef.current = nextScore;
+      setHistory((h) => [...h, w].slice(-6));
       playBlip(w.color);
       const lk = lastKana(w.kana);
       if (lk === "ん") {
-        finish(score + 10 + bonus);
+        finish(nextScore);
         return;
       }
       const nx = pickChoices(lk, used.current, 4);
       if (nx.length === 0) {
-        finish(score + 10 + bonus);
+        finish(nextScore);
         return;
       }
       setChoices(nx);
     },
-    [phase, chain, current, score, finish],
+    [phase, score, finish],
   );
 
   const reset = useCallback(() => {
     if (raf.current) cancelAnimationFrame(raf.current);
     raf.current = null;
     setPhase("idle");
-    setCurrent(null);
+    setHistory([]);
     setChoices([]);
-    setChain(0);
     setScore(0);
-    setBg(null);
+    finalScoreRef.current = 0;
     setTimeLeft(TOTAL_TIME_MS);
     used.current = new Set();
   }, []);
@@ -240,7 +250,10 @@ export default function IroshiriGame() {
   }, []);
 
   const timePct = timeLeft / TOTAL_TIME_MS;
-  const head = useMemo(() => (current ? lastKana(current.kana) : ""), [current]);
+  const current = history[history.length - 1] ?? null;
+  const head = current ? lastKana(current.kana) : "";
+  const chain = history.length;
+  const bgColor = current ? HEX[current.color] : "#EDE4CF";
 
   return (
     <FullscreenHost label="全画面でつなぐ">
@@ -277,9 +290,7 @@ export default function IroshiriGame() {
           className={`relative overflow-hidden rounded-[28px] border-2 border-ink ring-ink-lg transition-colors duration-500 ${
             isFs ? "min-h-0 flex-1" : ""
           }`}
-          style={{
-            background: bg ? HEX[bg] : "#EDE4CF",
-          }}
+          style={{ background: bgColor }}
         >
           <div className="h-2 w-full border-b-2 border-ink bg-bg/70">
             <div
@@ -287,23 +298,51 @@ export default function IroshiriGame() {
               style={{ width: `${timePct * 100}%` }}
             />
           </div>
-          <div className={`flex flex-col gap-5 p-5 md:gap-6 md:p-8 ${isFs ? "h-full" : ""}`}>
-            <div className="flex flex-col items-center gap-2 text-center">
-              <div className="font-label text-[10px] font-semibold uppercase tracking-[0.3em] text-bg md:text-[11px]">
-                いまのことば
-              </div>
-              <div className="rounded-2xl border-2 border-ink bg-bg px-6 py-3 ring-ink">
-                <div className="font-display text-[28px] font-black leading-none md:text-[42px]">
-                  {current ? current.kana : "—"}
-                </div>
-              </div>
-              {phase === "playing" && head && (
-                <div className="mt-1 font-display text-[14px] font-bold text-bg md:text-[16px]">
-                  「{head}」から始まる、つぎの ことばを えらぼう
-                </div>
-              )}
-            </div>
 
+          <div className={`flex flex-col gap-4 p-4 md:gap-5 md:p-6 ${isFs ? "h-full" : ""}`}>
+            {/* Word chain history */}
+            {history.length > 0 && phase !== "idle" && (
+              <div className="mx-auto flex max-w-full flex-wrap items-center justify-center gap-1.5 px-2">
+                {history.slice(-5).map((w, i, arr) => (
+                  <div key={`${w.kana}-${i}`} className="flex items-center gap-1.5">
+                    <span
+                      className={`rounded-full border-2 border-ink px-3 py-1 font-display text-[13px] font-black ring-ink-sm md:text-[15px] ${
+                        i === arr.length - 1 ? "bg-bg" : "bg-bg/70"
+                      }`}
+                    >
+                      {w.kana}
+                    </span>
+                    {i < arr.length - 1 && (
+                      <span className="font-display text-[16px] font-black text-bg">→</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Current prompt — show required starting kana BIG */}
+            {phase === "playing" && head && (
+              <div className="flex flex-col items-center gap-2 text-center">
+                <div className="font-label text-[10px] font-semibold uppercase tracking-[0.3em] text-bg md:text-[11px]">
+                  つぎは この もじから
+                </div>
+                <div className="flex items-center justify-center gap-3">
+                  <div className="rounded-2xl border-[3px] border-ink bg-bg px-8 py-3 ring-ink">
+                    <div className="font-display text-[56px] font-black leading-none text-ink md:text-[72px]">
+                      {head}
+                    </div>
+                  </div>
+                  <div className="font-display text-[40px] font-black text-bg md:text-[52px]">→</div>
+                  <div className="rounded-2xl border-2 border-bg bg-transparent px-5 py-3">
+                    <div className="font-display text-[28px] font-black leading-none text-bg md:text-[36px]">
+                      ？
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Choices */}
             {phase === "playing" && choices.length > 0 && (
               <div className="mx-auto grid w-full max-w-[640px] grid-cols-2 gap-3 md:gap-4">
                 {choices.map((c) => (
@@ -325,8 +364,9 @@ export default function IroshiriGame() {
             {phase === "idle" && (
               <div className="mx-auto flex max-w-md flex-col items-center gap-4 rounded-2xl border-2 border-ink bg-bg/95 px-6 py-6 ring-ink">
                 <p className="text-center font-display text-[16px] font-bold leading-snug md:text-[18px]">
-                  ことばを えらんで しりとり。<br />
-                  画面が その色に 染まります。
+                  ことばの 最後の もじで、<br />
+                  つぎの ことばを えらぶ しりとり。<br />
+                  画面が その ことばの いろに そまります。
                 </p>
                 <button
                   onClick={start}
@@ -339,11 +379,10 @@ export default function IroshiriGame() {
 
             {phase === "done" && (
               <div className="mx-auto flex max-w-md flex-col items-center gap-3 rounded-2xl border-2 border-ink bg-bg/95 px-6 py-6 ring-ink">
-                <p className="font-display text-[22px] font-black md:text-[26px]">
-                  {chain}れんさ！
-                </p>
+                <p className="font-display text-[22px] font-black md:text-[26px]">{chain}れんさ！</p>
                 <p className="text-[13px] text-ink-soft md:text-[15px]">
-                  スコア：{score} {chain >= 8 ? "すばらしい連鎖！" : chain >= 4 ? "いい調子" : "またあそぼう"}
+                  スコア：{score}{" "}
+                  {chain >= 8 ? "すばらしい連鎖！" : chain >= 4 ? "いい調子" : "またあそぼう"}
                 </p>
                 <div className="flex gap-2">
                   <button
