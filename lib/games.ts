@@ -126,7 +126,7 @@ export const GAMES: GameMeta[] = [
     kana: "IRO-SHIRITORI",
     tagline: "色と言葉でつなぐ。",
     color: "yellow",
-    status: "soon",
+    status: "playable",
     concept:
       "「あか → かば → ばなな」と、言葉をつなぎながら、その言葉の色で画面がぽっと染まる。色彩と言語の記憶を、やさしく行き来するあそび。",
     howTo: ["画面の言葉から1つを選びます", "次の人は、最後の文字から始まる言葉を選びます", "3人までで回せます"],
@@ -139,7 +139,7 @@ export const GAMES: GameMeta[] = [
     kana: "KATACHI",
     tagline: "線をなぞってかたちを作る。",
     color: "red",
-    status: "soon",
+    status: "playable",
     concept:
       "画面に薄く浮かぶ形を、指でそっとなぞる。丸、三角、四角。単純な形ほど、触れる楽しみが際立つ。",
     howTo: ["薄く光るガイド線を指でなぞります", "最後まで途切れずになぞれたらクリア", "難易度は自動で調整"],
@@ -152,7 +152,7 @@ export const GAMES: GameMeta[] = [
     kana: "TSUKI",
     tagline: "月の満ち欠けに合わせてタップ。",
     color: "blue",
-    status: "soon",
+    status: "playable",
     concept:
       "新月から満月、また新月へ。満ちていく光、欠けていく光のリズムに合わせて、やさしく指を置く。呼吸誘導系のもっとも静かな一本。",
     howTo: ["満ちる光に合わせて息を吸います", "欠ける光に合わせて息を吐きます", "リズムに合わせてタップ"],
@@ -178,7 +178,7 @@ export const GAMES: GameMeta[] = [
     kana: "NEKONADE",
     tagline: "のどを鳴らすまで、ゆっくり撫でよう。",
     color: "green",
-    status: "soon",
+    status: "playable",
     concept:
       "画面のねこを、指でやさしく撫でる。強すぎると逃げる。やさしく、ゆっくり。目を細めて、ごろごろ鳴きはじめたらクリア。",
     howTo: ["画面のねこを指で撫でます", "強すぎず、一定の速さで", "ごろごろ言いはじめたら成功"],
