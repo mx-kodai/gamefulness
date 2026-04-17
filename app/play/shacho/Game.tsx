@@ -162,12 +162,153 @@ const REQUESTS: Request[] = [
       { label: "事業はそっと縮小して静かに続ける", good: false },
     ],
   },
+  {
+    topic: "地域清掃",
+    quote: "街の川を、きれいに保ちたいんだよ。",
+    choices: [
+      { label: "社員で毎月、川の清掃ボランティアをする", good: true },
+      { label: "清掃団体に名前だけ貸す", good: false },
+      { label: "清掃の日だけ広告を出す", good: false },
+      { label: "街の美化は行政に任せる", good: false },
+    ],
+  },
+  {
+    topic: "働く家族",
+    quote: "スタッフの家族にも、大事にしてほしい。",
+    choices: [
+      { label: "家族を招いた工場見学日や誕生日祝いを用意する", good: true },
+      { label: "家族手当は一律0円で公平にする", good: false },
+      { label: "家族の話は業務中は禁止する", good: false },
+      { label: "残業手当を削って給与を増やす", good: false },
+    ],
+  },
+  {
+    topic: "新人育成",
+    quote: "新人がすぐ辞めちゃうんだ。なにができる？",
+    choices: [
+      { label: "3か月の研修とメンター制度でじっくり育てる", good: true },
+      { label: "即戦力を求めて現場に即投入する", good: false },
+      { label: "厳しく叱って根性を鍛える", good: false },
+      { label: "給料だけ上げて対応する", good: false },
+    ],
+  },
+  {
+    topic: "障がい者雇用",
+    quote: "障がいのある方と、一緒に働きたいな。",
+    choices: [
+      { label: "業務を丁寧に切り分け、専任サポーターを置く", good: true },
+      { label: "対応が難しいので今回は見送る", good: false },
+      { label: "制度に反しないレベルで最小人数だけ", good: false },
+      { label: "雇用は見せかけで実質は別室待機", good: false },
+    ],
+  },
+  {
+    topic: "健康経営",
+    quote: "社員の健康診断、もっと役立てたい。",
+    choices: [
+      { label: "結果に応じて運動・食事のアドバイス窓口を設ける", good: true },
+      { label: "結果が悪い人は配置転換する", good: false },
+      { label: "診断結果は会社に報告せず自己管理", good: false },
+      { label: "診断回数を2年に1度に減らす", good: false },
+    ],
+  },
+  {
+    topic: "農家さんと",
+    quote: "地元の米農家さんたちに、水で恩返しできないかな。",
+    choices: [
+      { label: "稲作に向く水の活用法を一緒に研究する", good: true },
+      { label: "農家には営業しないと決める", good: false },
+      { label: "自社ブランドの米を単独で作る", good: false },
+      { label: "農業用水は高く売る", good: false },
+    ],
+  },
+  {
+    topic: "DX化",
+    quote: "配達の仕組みをもっと効率化したい。",
+    choices: [
+      { label: "注文アプリと電話注文を両方残して誰でも使えるようにする", good: true },
+      { label: "注文は全部LINEだけに統一する", good: false },
+      { label: "電話は廃止してスマホ必須にする", good: false },
+      { label: "FAXに戻して確実性を取る", good: false },
+    ],
+  },
+  {
+    topic: "スポーツ",
+    quote: "地元のスポーツチームを応援したい。",
+    choices: [
+      { label: "給水サポートとスポンサーを組み合わせて長く関わる", good: true },
+      { label: "強いチームだけ選んで短期で広告する", good: false },
+      { label: "勝ったチームにだけボトルを贈る", good: false },
+      { label: "社員は応援に行かせない", good: false },
+    ],
+  },
+  {
+    topic: "商店街",
+    quote: "シャッター通りが増えてて、気になってね。",
+    choices: [
+      { label: "空き店舗で地域の交流スペースを共同運営する", good: true },
+      { label: "買い取って自社店舗にして家賃を稼ぐ", good: false },
+      { label: "見なかったことにする", good: false },
+      { label: "商店街に自販機だけ並べる", good: false },
+    ],
+  },
+  {
+    topic: "花火大会",
+    quote: "地元の花火大会、毎年楽しみでね。",
+    choices: [
+      { label: "会場に無料の給水所を置き、熱中症予防に貢献する", good: true },
+      { label: "協賛金だけ出して現場には関わらない", good: false },
+      { label: "花火の音を録音して自社CMに使う", good: false },
+      { label: "花火の日は全員残業にする", good: false },
+    ],
+  },
+  {
+    topic: "病院連携",
+    quote: "地元病院の患者さんにも、水で何かできないかな。",
+    choices: [
+      { label: "点滴や調乳用途にも使える水質を看護部と一緒に検討する", good: true },
+      { label: "営業目的で病室にパンフを置く", good: false },
+      { label: "病院食の味付けを監修する", good: false },
+      { label: "病院には宣伝せず遠ざかる", good: false },
+    ],
+  },
+  {
+    topic: "保育園",
+    quote: "保育園の子どもたちに、安全な水を届けたい。",
+    choices: [
+      { label: "水質を優しく伝える紙芝居と無償サーバー提供を組み合わせる", good: true },
+      { label: "保護者向けにセールスする", good: false },
+      { label: "園児にロゴ入りグッズを配る", good: false },
+      { label: "自治体と契約しないと動かない", good: false },
+    ],
+  },
+  {
+    topic: "情報発信",
+    quote: "会社の取り組み、もっと知ってほしい。",
+    choices: [
+      { label: "現場の小さな出来事を毎週SNSで丁寧に発信する", good: true },
+      { label: "広告費をかけてテレビCMを流す", good: false },
+      { label: "プレスリリースだけ年1回", good: false },
+      { label: "発信は社長のスピーチに任せる", good: false },
+    ],
+  },
+  {
+    topic: "長く働く",
+    quote: "ベテランさんに、長く気持ちよく続けてほしい。",
+    choices: [
+      { label: "60代以降も選べる働き方と体力に合わせた役割を用意する", good: true },
+      { label: "ベテランは60歳で一律引退", good: false },
+      { label: "給与を据え置きにして辞めるのを待つ", good: false },
+      { label: "現場を退いて事務だけにする", good: false },
+    ],
+  },
 ];
 
 type Phase = "idle" | "playing" | "feedback" | "done";
 type PreparedQ = { topic: string; quote: string; choices: Choice[] };
 const TOTAL = 10;
-const PER_Q_MS = 6000;
+const PER_Q_MS = 10000;
+const FEEDBACK_MS = 2200;
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -250,7 +391,7 @@ export default function ShachoGame() {
       } else {
         nextQ();
       }
-    }, 1100);
+    }, FEEDBACK_MS);
     return () => clearTimeout(t);
   }, [phase, qIdx, nextQ]);
 
