@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2.2" fill="rgba(27,26,23,0.12)"/>
+    </pattern>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F4B533"/>
+      <stop offset="100%" stop-color="#E23D3D"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#F6F1E4"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <circle cx="990" cy="200" r="140" fill="url(#sun)" stroke="#1B1A17" stroke-width="6"/>
+  <g stroke="#1B1A17" stroke-width="6" fill="none" stroke-linecap="round">
+    <line x1="990" y1="50" x2="990" y2="20"/>
+    <line x1="990" y1="380" x2="990" y2="350"/>
+    <line x1="840" y1="200" x2="810" y2="200"/>
+    <line x1="1170" y1="200" x2="1140" y2="200"/>
+  </g>
+  <g transform="translate(90 140)">
+    <text x="0" y="0" font-family="'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif" font-size="36" font-weight="700" fill="#1B1A17">GAMEFULNESS</text>
+    <text x="0" y="130" font-family="'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif" font-size="120" font-weight="900" fill="#1B1A17">ゲームフルネス</text>
+    <text x="0" y="220" font-family="'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif" font-size="46" font-weight="800" fill="#1B1A17">あそびで、こころ満たされる毎日を</text>
+    <text x="0" y="300" font-family="'Noto Sans JP', sans-serif" font-size="28" font-weight="500" fill="#1B1A17" opacity="0.75">7〜99歳、だれでも。ひと駒 1〜3分の やさしい ミニゲーム。</text>
+  </g>
+  <g transform="translate(90 490)">
+    <circle cx="0" cy="0" r="26" fill="#E23D3D" stroke="#1B1A17" stroke-width="4"/>
+    <circle cx="70" cy="0" r="26" fill="#F4B533" stroke="#1B1A17" stroke-width="4"/>
+    <circle cx="140" cy="0" r="26" fill="#2F7FE0" stroke="#1B1A17" stroke-width="4"/>
+    <circle cx="210" cy="0" r="26" fill="#2FA66E" stroke="#1B1A17" stroke-width="4"/>
+  </g>
+</svg>
