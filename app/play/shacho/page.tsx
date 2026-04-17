@@ -3,11 +3,11 @@ import ShachoGame from "./Game";
 
 export const metadata: Metadata = {
   title: "社長の要望にこたえろ",
-  description: "ヤングドライ社長の一言に、ベストな一手で応える特別ゲーム。",
+  description: "ヤングカレッジ社長の一言に、ベストな一手で応える特別ゲーム。水の会社の未来を、あなたの判断で。",
   alternates: { canonical: "/play/shacho" },
   openGraph: {
     title: "社長の要望にこたえろ | ゲームフルネス",
-    description: "ヤングドライ提供の特別ゲーム。",
+    description: "ヤングカレッジ提供の特別ゲーム。",
     images: [{ url: "/og.svg", width: 1200, height: 630 }],
   },
 };
@@ -20,7 +20,7 @@ export default function Page() {
           SPECIAL
         </span>
         <span className="font-label font-semibold uppercase tracking-[0.2em] text-ink-soft">
-          PRESENTED BY YOUNG DRY
+          PRESENTED BY YOUNG COLLEGE
         </span>
       </div>
       <ShachoGame />

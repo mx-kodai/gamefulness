@@ -32,7 +32,7 @@ function SpecialBanner() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/shacho.png"
-            alt="ヤングドライ社長"
+            alt="ヤングカレッジ社長"
             className="block h-full w-full object-cover"
             loading="lazy"
           />
@@ -43,14 +43,14 @@ function SpecialBanner() {
               SPECIAL
             </span>
             <span className="rounded-full border-2 border-ink bg-bg px-2.5 py-1 font-label text-[9px] font-bold uppercase tracking-[0.2em] md:text-[10px]">
-              PRESENTED BY YOUNG DRY
+              PRESENTED BY YOUNG COLLEGE
             </span>
           </div>
           <h3 className="font-display text-[20px] font-black leading-tight md:text-[30px]">
             社長の要望に、こたえろ。
           </h3>
           <p className="hidden max-w-[52ch] text-[12px] leading-snug text-ink md:block md:text-[14px]">
-            ヤングドライ社長が投げかけるアイデアに、あなたの判断で応える60秒の特別ゲーム。
+            水をつくるヤングカレッジ社長が投げかけるアイデアに、あなたの判断で応える60秒の特別ゲーム。
             社長を笑顔にできたら、あなたも今日のMVPだ。
           </p>
           <p className="text-[11px] leading-snug text-ink md:hidden">
@@ -65,7 +65,7 @@ function SpecialBanner() {
       </div>
       <div className="flex items-center justify-between border-t-2 border-ink bg-bg px-4 py-2 text-[10px] font-bold md:px-7 md:text-[11px]">
         <span className="font-label tracking-[0.15em] text-ink-soft">
-          ゲームフルネス × YOUNG DRY コラボゲーム
+          ゲームフルネス × YOUNG COLLEGE コラボゲーム ／ 水と健康をつくる会社
         </span>
         <span className="hidden font-label tracking-[0.15em] text-ink-soft md:inline">
           ★ Special collaboration

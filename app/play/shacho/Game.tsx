@@ -13,110 +13,170 @@ type Request = {
 
 const REQUESTS: Request[] = [
   {
-    topic: "地域密着",
-    quote: "もっと地域に愛される店にしたいんだよね。",
+    topic: "水の安心",
+    quote: "うちのRO水、もっと安心して飲んでほしいんだよね。",
     choices: [
-      { label: "笑顔であいさつを徹底する", good: true },
-      { label: "店内BGMをジャズに変える", good: false },
-      { label: "値下げキャンペーン", good: false },
-      { label: "看板を金色にする", good: false },
+      { label: "水質検査の結果をWebで毎月公開する", good: true },
+      { label: "おしゃれなボトルに入れ替える", good: false },
+      { label: "CMを一気に増やす", good: false },
+      { label: "販売店を限定して希少感を出す", good: false },
     ],
   },
   {
-    topic: "服の扱い",
-    quote: "お客さまの服は、ひとつひとつ、もっと大切に。",
+    topic: "お届けの現場",
+    quote: "高齢のお客さまへの配達、もっと喜ばれるには？",
     choices: [
-      { label: "一点一点、手で確認する", good: true },
-      { label: "機械に全部まかせる", good: false },
-      { label: "とにかく速さ重視", good: false },
-      { label: "まとめてどんっ", good: false },
+      { label: "重いボトルを玄関の中まで運び、ひと言添える", good: true },
+      { label: "配送スピードを何より優先する", good: false },
+      { label: "注文はアプリからだけにする", good: false },
+      { label: "月に1回まとめて大量納品にする", good: false },
     ],
   },
   {
-    topic: "若い客層",
-    quote: "若い人にも、もっと来てほしいんだよ。",
+    topic: "環境",
+    quote: "ペットボトルのゴミ、気になるんだよ。",
     choices: [
-      { label: "店内を明るく、写真映えに", good: true },
-      { label: "高級路線にふる", good: false },
-      { label: "シニア割引を拡大", good: false },
-      { label: "営業時間を短くする", good: false },
+      { label: "リターナブルボトルで回収・再利用する", good: true },
+      { label: "ラベルだけ小さくして節約感を出す", good: false },
+      { label: "輸入ブランド水に切り替える", good: false },
+      { label: "サイズを大きくしてゴミを目立たなくする", good: false },
     ],
   },
   {
-    topic: "スタッフ",
-    quote: "新入社員がちょっと元気なくて…",
+    topic: "子育て家庭",
+    quote: "子育て世帯にも、うちの水を届けたい。",
     choices: [
-      { label: "毎朝、みんなで声出し挨拶", good: true },
-      { label: "朝礼なし、無言開店", good: false },
-      { label: "残業を増やす", good: false },
-      { label: "個室で反省会", good: false },
+      { label: "ミルク作りに向く軟水であることをやさしく伝える", good: true },
+      { label: "高級路線にふりきる", good: false },
+      { label: "子ども向けに甘い味の水を新発売する", good: false },
+      { label: "子育て世帯は対象外にして効率化する", good: false },
     ],
   },
   {
-    topic: "業界リード",
-    quote: "業界をリードする会社にしたい。",
+    topic: "スタッフへ",
+    quote: "最近、配達スタッフがちょっと疲れていてね…",
     choices: [
-      { label: "エコ洗剤を全店で導入する", good: true },
-      { label: "値段を一気に倍にする", good: false },
-      { label: "CMを大量に流す", good: false },
-      { label: "業界団体を辞める", good: false },
+      { label: "ルートと休憩を見直し、声をちゃんと聴く", good: true },
+      { label: "朝礼で順位を貼り出して競わせる", good: false },
+      { label: "歩合を強めて台数をこなしてもらう", good: false },
+      { label: "辞めた分は残った人でカバーしてもらう", good: false },
     ],
   },
   {
-    topic: "イベント",
-    quote: "地域のお祭りに、うちも出たいな。",
+    topic: "水源を守る",
+    quote: "水源の森を、ずっと守っていきたい。",
     choices: [
-      { label: "夏祭りに出張受付ブース", good: true },
-      { label: "店内で一人花見", good: false },
-      { label: "オンラインで配信のみ", good: false },
-      { label: "のぼりだけ立てる", good: false },
+      { label: "地元の植樹活動や水源保全に寄付する", good: true },
+      { label: "工場を拡張して売上を増やす", good: false },
+      { label: "看板を大きく立ててアピールする", good: false },
+      { label: "水源は海外に切り替える", good: false },
     ],
   },
   {
-    topic: "お客さま感動",
-    quote: "お客さまを、もっと喜ばせたい。",
+    topic: "サーバー衛生",
+    quote: "ウォーターサーバー、家庭で安心して使ってもらうには？",
     choices: [
-      { label: "季節の手書きメッセージを添える", good: true },
-      { label: "割引チラシを同封", good: false },
-      { label: "ポイントを10倍にする", good: false },
-      { label: "無言で渡す", good: false },
+      { label: "定期メンテナンスと抗菌仕様を標準にする", good: true },
+      { label: "買い切りにしてメンテは自己責任にする", good: false },
+      { label: "一度導入したら交換せず長く使ってもらう", good: false },
+      { label: "クレームはテンプレで返信する", good: false },
     ],
   },
   {
-    topic: "店舗体験",
-    quote: "お店に来るだけで、ちょっと元気になるようにしたい。",
+    topic: "地域の健康",
+    quote: "水で、地域の健康寿命を延ばせないかな。",
     choices: [
-      { label: "入り口にお花と笑顔", good: true },
-      { label: "モニターで広告を流す", good: false },
-      { label: "ガラス張りをやめる", good: false },
-      { label: "静かにBGM消す", good: false },
+      { label: "こまめな水分補給を呼びかけ、介護施設にサーバーを置く", good: true },
+      { label: "事業をエナジードリンクに切り替える", good: false },
+      { label: "健康情報は出さず水だけ売る", good: false },
+      { label: "スポーツ選手にだけ特別供給する", good: false },
     ],
   },
   {
-    topic: "人材育成",
-    quote: "スタッフにも成長してほしいんだよね。",
+    topic: "災害への備え",
+    quote: "災害のとき、地域の役に立てる会社でありたい。",
     choices: [
-      { label: "月1で学びの時間をつくる", good: true },
-      { label: "新人は裏方だけ", good: false },
-      { label: "評価は売上だけで決める", good: false },
-      { label: "研修は省略", good: false },
+      { label: "自治体と給水協定を結び、有事に無償で届ける", good: true },
+      { label: "非常時は値上げして希少価値を出す", good: false },
+      { label: "災害時は配達を全休にする", good: false },
+      { label: "在庫はすべて都会へ集める", good: false },
     ],
   },
   {
-    topic: "未来構想",
+    topic: "地元のお祭り",
+    quote: "夏祭り、うちも何か協力したいんだよね。",
+    choices: [
+      { label: "給水所を無料で設置して熱中症を防ぐ", good: true },
+      { label: "屋台をたくさん出して売上を作る", good: false },
+      { label: "会社の名前をハッピに大きく入れる", good: false },
+      { label: "来場者にチラシを大量配布する", good: false },
+    ],
+  },
+  {
+    topic: "子ども食堂",
+    quote: "地域の子ども食堂に、できることはあるかな？",
+    choices: [
+      { label: "月に1度、水とウォーターサーバーを無償提供する", good: true },
+      { label: "広告を貼らせてもらう条件で支援する", good: false },
+      { label: "年末だけ目立つ寄付をする", good: false },
+      { label: "お金は出さず名前だけ貸す", good: false },
+    ],
+  },
+  {
+    topic: "季節の暮らし",
+    quote: "夏、地域の人に喜んでもらう企画ない？",
+    choices: [
+      { label: "氷水の無料給水スタンドを街角に置く", good: true },
+      { label: "期間限定でボトルを値上げする", good: false },
+      { label: "派手な看板を出してブランド露出する", good: false },
+      { label: "SNSで抽選で1人だけ当選させる", good: false },
+    ],
+  },
+  {
+    topic: "地元の学校",
+    quote: "子どもたちに、水の大切さを伝えたい。",
+    choices: [
+      { label: "小中学校で出前授業と水源地ツアーを開く", good: true },
+      { label: "ロゴ入りグッズを配って宣伝する", good: false },
+      { label: "学校に自販機だけ置く", good: false },
+      { label: "動画を配信して終わりにする", good: false },
+    ],
+  },
+  {
+    topic: "ご高齢のお客さま",
+    quote: "ひとり暮らしの方の見守り、何かできないかな。",
+    choices: [
+      { label: "配達時に声かけをして、異変があれば家族に連絡する", good: true },
+      { label: "見守りプランとして別料金で提供する", good: false },
+      { label: "IoTボトルで自動監視だけにする", good: false },
+      { label: "見守りは民生委員に任せる", good: false },
+    ],
+  },
+  {
+    topic: "10年後",
     quote: "10年後、どんな会社でありたい？",
     choices: [
-      { label: "地域のインフラに、なくてはならない存在", good: true },
-      { label: "上場してFIRE", good: false },
-      { label: "全部AIにまかせる", good: false },
-      { label: "事業を縮小する", good: false },
+      { label: "水と健康で、地域になくてはならない存在", good: true },
+      { label: "上場して社長はFIREする", good: false },
+      { label: "全国チェーン化して知名度で勝負する", good: false },
+      { label: "事業はそっと縮小して静かに続ける", good: false },
     ],
   },
 ];
 
 type Phase = "idle" | "playing" | "feedback" | "done";
+type PreparedQ = { topic: string; quote: string; choices: Choice[] };
 const TOTAL = 10;
 const PER_Q_MS = 6000;
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 export default function ShachoGame() {
   const [phase, setPhase] = useState<Phase>("idle");
@@ -126,7 +186,8 @@ export default function ShachoGame() {
   const [feedback, setFeedback] = useState<"good" | "bad" | null>(null);
   const [lastPicked, setLastPicked] = useState<number | null>(null);
   const [msLeft, setMsLeft] = useState(PER_Q_MS);
-  const order = useRef<number[]>([]);
+  const [isFs, setIsFs] = useState(false);
+  const prepared = useRef<PreparedQ[]>([]);
   const startTs = useRef(0);
   const raf = useRef<number | null>(null);
 
@@ -135,10 +196,15 @@ export default function ShachoGame() {
     if (v) setBest(parseInt(v, 10) || 0);
   }, []);
 
-  const q = useMemo(() => {
+  useEffect(() => {
+    const h = () => setIsFs(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", h);
+    return () => document.removeEventListener("fullscreenchange", h);
+  }, []);
+
+  const q = useMemo<PreparedQ | null>(() => {
     if (phase !== "playing" && phase !== "feedback") return null;
-    const idx = order.current[qIdx];
-    return REQUESTS[idx];
+    return prepared.current[qIdx] ?? null;
   }, [qIdx, phase]);
 
   const nextQ = useCallback(() => {
@@ -190,12 +256,11 @@ export default function ShachoGame() {
 
   const start = useCallback(() => {
     enterFs();
-    const a = Array.from({ length: REQUESTS.length }, (_, i) => i);
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    order.current = a.slice(0, TOTAL);
+    const picked = shuffle(Array.from({ length: REQUESTS.length }, (_, i) => i)).slice(0, TOTAL);
+    prepared.current = picked.map((idx) => {
+      const r = REQUESTS[idx];
+      return { topic: r.topic, quote: r.quote, choices: shuffle(r.choices) };
+    });
     setQIdx(0);
     setScore(0);
     setMsLeft(PER_Q_MS);
@@ -258,12 +323,15 @@ export default function ShachoGame() {
   }, []);
 
   const progress = phase === "playing" || phase === "feedback" ? (qIdx + 1) / TOTAL : 0;
-  const timerPct = msLeft / PER_Q_MS;
 
   return (
     <FullscreenHost label="全画面で応える">
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border-2 border-ink bg-bg px-4 py-3 ring-ink-sm md:px-5 md:py-4">
+      <div
+        className={`flex flex-col gap-3 ${
+          isFs ? "mx-auto h-[100dvh] max-w-[1100px] justify-center overflow-hidden px-4 py-3" : ""
+        }`}
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border-2 border-ink bg-bg px-4 py-3 pr-28 ring-ink-sm md:px-5 md:py-4 md:pr-36">
           <div className="flex items-center gap-5 md:gap-7">
             <Stat label="スコア" value={String(score)} />
             <Stat label="問題" value={`${Math.min(qIdx + 1, TOTAL)} / ${TOTAL}`} />
@@ -286,7 +354,11 @@ export default function ShachoGame() {
           </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-[28px] border-2 border-ink bg-bg-ink ring-ink-lg">
+        <div
+          className={`relative overflow-hidden rounded-[28px] border-2 border-ink bg-bg-ink ring-ink-lg ${
+            isFs ? "min-h-0 flex-1" : ""
+          }`}
+        >
           <div className="h-2 w-full border-b-2 border-ink bg-bg">
             <div
               className="h-full bg-red transition-[width] duration-100"
@@ -294,8 +366,16 @@ export default function ShachoGame() {
             />
           </div>
 
-          <div className="grid gap-5 p-5 md:grid-cols-[260px_1fr] md:gap-7 md:p-7">
-            <div className="relative mx-auto w-full max-w-[320px] md:mx-0 md:max-w-none">
+          <div
+            className={`grid gap-5 p-5 md:gap-7 md:p-7 ${
+              isFs ? "h-full md:grid-cols-[220px_1fr]" : "md:grid-cols-[260px_1fr]"
+            }`}
+          >
+            <div
+              className={`relative mx-auto w-full md:mx-0 ${
+                isFs ? "max-w-[180px] md:max-w-none" : "max-w-[320px] md:max-w-none"
+              }`}
+            >
               <div
                 className={`relative overflow-hidden rounded-[22px] border-2 border-ink bg-bg ring-ink transition-transform ${
                   feedback === "good" ? "rotate-1" : feedback === "bad" ? "-rotate-1" : ""
@@ -304,12 +384,12 @@ export default function ShachoGame() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/images/shacho.png"
-                  alt="ヤングドライ社長"
-                  className="block aspect-[3/4] w-full object-cover"
+                  alt="ヤングカレッジ社長"
+                  className={`block w-full object-cover ${isFs ? "aspect-[4/5]" : "aspect-[3/4]"}`}
                 />
                 <div className="absolute inset-x-0 bottom-0 border-t-2 border-ink bg-bg/95 px-3 py-2 text-center">
                   <div className="font-label text-[9px] font-semibold uppercase tracking-[0.2em] text-ink-soft">
-                    YOUNG DRY
+                    YOUNG COLLEGE
                   </div>
                   <div className="font-display text-[14px] font-black">社長</div>
                 </div>

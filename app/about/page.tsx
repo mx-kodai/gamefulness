@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "コンセプト | ゲームフルネス",
-  description: "ゲーム × ウェルネスの思想と設計原則。Zorgeが大切にしていること。",
+  description: "ゲーム × ウェルネスの思想と設計原則。株式会社ZORGE（ゾルゲ）が大切にしていること。",
 };
 
 export default function AboutPage() {

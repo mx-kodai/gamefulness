@@ -56,9 +56,9 @@ export const metadata: Metadata = {
     "インクルーシブ",
     "ユニバーサル",
   ],
-  authors: [{ name: "Zorge" }],
-  creator: "Zorge",
-  publisher: "Zorge",
+  authors: [{ name: "株式会社ZORGE (ゾルゲ)", url: "https://zorge.jp/" }],
+  creator: "株式会社ZORGE (ゾルゲ)",
+  publisher: "株式会社ZORGE (ゾルゲ)",
   formatDetection: { email: false, address: false, telephone: false },
   openGraph: {
     type: "website",
