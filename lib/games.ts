@@ -14,6 +14,26 @@ export type GameMeta = {
   duration: string;
 };
 
+export const SPECIAL_GAMES: GameMeta[] = [
+  {
+    slug: "shacho",
+    title: "社長の要望にこたえろ",
+    kana: "SHACHO",
+    tagline: "ヤングドライ社長の一言に、ベストな一手で応えよう。",
+    color: "red",
+    status: "playable",
+    concept:
+      "ヤングドライ社長が、次から次へとアイデアを投げかけてくる。『地域に愛される店にしたい』『若い人にも来てほしい』——どれも大事。だからこそ、いまのこの一言には、どの一手がいちばん効くか。スピードと勘で応えるちょっと変わった特別ゲーム。",
+    howTo: [
+      "社長の要望を読み、4つの選択肢から最適な返答をタップ",
+      "迷う時間も得点に関わります",
+      "全10問、60秒。社長を笑顔にできるか？",
+    ],
+    wellness: "言語理解・素早い判断・対人シミュレーション。",
+    duration: "1プレイ 60秒",
+  },
+];
+
 export const GAMES: GameMeta[] = [
   {
     slug: "tobikko",
@@ -220,7 +240,7 @@ export const GAMES: GameMeta[] = [
 ];
 
 export const GAME_BY_SLUG: Record<string, GameMeta> = Object.fromEntries(
-  GAMES.map((g) => [g.slug, g]),
+  [...GAMES, ...SPECIAL_GAMES].map((g) => [g.slug, g]),
 );
 
 export const COLOR_HEX: Record<GameColor, string> = {

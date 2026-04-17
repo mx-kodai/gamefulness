@@ -11,10 +11,67 @@ export default function Home() {
       <section className="mx-auto max-w-[1280px] px-5 pt-10 md:px-8 md:pt-16">
         <TopHighlights />
       </section>
-      <section className="mx-auto max-w-[1280px] px-5 pb-24 pt-10 md:px-8 md:pt-16">
+      <section className="mx-auto max-w-[1280px] px-5 pt-10 md:px-8 md:pt-16">
         <GameGrid />
       </section>
+      <section className="mx-auto max-w-[1280px] px-5 pb-24 pt-14 md:px-8 md:pt-20">
+        <SpecialBanner />
+      </section>
     </>
+  );
+}
+
+function SpecialBanner() {
+  return (
+    <Link
+      href="/play/shacho"
+      className="group relative block overflow-hidden rounded-[28px] border-2 border-ink ring-ink-lg btn-lift"
+    >
+      <div className="relative grid grid-cols-[120px_1fr_auto] items-stretch gap-0 bg-yellow md:grid-cols-[260px_1fr_auto]">
+        <div className="relative overflow-hidden border-r-2 border-ink bg-bg-ink">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/shacho.png"
+            alt="ヤングドライ社長"
+            className="block h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div className="flex flex-col justify-center gap-2 px-4 py-4 md:px-7 md:py-6">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full border-2 border-ink bg-ink px-2.5 py-1 font-display text-[10px] font-black uppercase tracking-wider text-bg md:text-[11px]">
+              SPECIAL
+            </span>
+            <span className="rounded-full border-2 border-ink bg-bg px-2.5 py-1 font-label text-[9px] font-bold uppercase tracking-[0.2em] md:text-[10px]">
+              PRESENTED BY YOUNG DRY
+            </span>
+          </div>
+          <h3 className="font-display text-[20px] font-black leading-tight md:text-[30px]">
+            社長の要望に、こたえろ。
+          </h3>
+          <p className="hidden max-w-[52ch] text-[12px] leading-snug text-ink md:block md:text-[14px]">
+            ヤングドライ社長が投げかけるアイデアに、あなたの判断で応える60秒の特別ゲーム。
+            社長を笑顔にできたら、あなたも今日のMVPだ。
+          </p>
+          <p className="text-[11px] leading-snug text-ink md:hidden">
+            60秒、10問。社長を笑顔にできるか？
+          </p>
+        </div>
+        <div className="flex items-center border-l-2 border-ink bg-red pr-4 pl-3 md:pr-7 md:pl-5">
+          <span className="font-display text-[14px] font-black text-bg md:text-[18px]">
+            あそぶ →
+          </span>
+        </div>
+      </div>
+      <div className="flex items-center justify-between border-t-2 border-ink bg-bg px-4 py-2 text-[10px] font-bold md:px-7 md:text-[11px]">
+        <span className="font-label tracking-[0.15em] text-ink-soft">
+          ゲームフルネス × YOUNG DRY コラボゲーム
+        </span>
+        <span className="hidden font-label tracking-[0.15em] text-ink-soft md:inline">
+          ★ Special collaboration
+        </span>
+      </div>
+    </Link>
   );
 }
 
